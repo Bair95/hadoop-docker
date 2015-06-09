@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+array=$(docker inspect hadoopmaster |grep IPA)
+IFS=':' read -a arr <<< "$array"
+MASTER_IP=$(echo ${arr[1]} | sed s/\"//g| sed s/,//g)
+echo $MASTER_IP hadoopmaster.heartbit.io >> /etc/hosts
+service ssh start
+
